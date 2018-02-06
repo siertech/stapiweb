@@ -1,0 +1,31 @@
+
+<!-- 
+---- Detalhamento do objeto ----
+Neste escopo o objeto é controlado aravés de vm.item
+
+ -->
+
+<meta charset="UTF-8" />
+<modal-content item="vm.item" modal-instance="this" loading-ok-action="vm.salvandoItem" ok-action="vm.salvarItem"  delete-action="vm.deletarItem" icone-titulo="'user-o'" titulo="'Cadastro de associado'">
+
+     <div class="form-group col-lg-6">
+          <label>Nome</label>
+          <input class="form-control" ng-model="vm.item.nome" />
+     </div>
+     
+     <div class="form-group col-lg-6">
+          <label>Nº do associado</label>
+          <input class="form-control" ng-model="vm.item.numero" />
+     </div>
+     
+      <div class="form-group col-lg-4">
+          <label>CPF</label>
+          <input class="form-control" ng-model="vm.item.cpf" />
+     </div>
+     
+     <div class="form-group col-lg-4">
+          <label>Data de Nascimento</label>
+          <input class="form-control" ng-model="vm.item.dataNascimento" />
+     </div>
+
+</modal-content>

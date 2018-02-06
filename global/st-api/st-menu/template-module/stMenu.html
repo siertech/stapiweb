@@ -1,0 +1,127 @@
+<meta charset="UTF-8" />
+<div>
+ 
+  <nav id="nav_principal"  ng-cloak ng-show="showMenu"
+			class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0; background-color: #EDEDED">
+		
+       <div id="nav-header" class="navbar-header"  style="padding-top: 0px; min-width: 200px;">
+				
+				<button ng-click="changeCollapse()" type="button" id="button-menu-mobile"
+					class="navbar-toggle btn btn-default  dropdown-toggle" data-toggle="dropdown" style="margin: 0px!important; font-size: 25px;">
+					<i class="fa fa-bars fa-1.5x" style="color:white;"></i> Menu
+				</button>
+				
+				    <!-- Menu mobile -->
+				<div id="menu" class="dropdown-menu menu-mobile  pull-right">
+				
+				    <!-- 
+				          <div class="pull-left" style="margin:9px;">
+				              <span class="text-muted">
+				                     <strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{appVersion}}</strong>
+				              </span>
+				          </div>
+				          
+				           -->
+						 <div class="pull-right" style="margin:9px;">
+							      <i class="fa fa-times text-muted" style="font-size:32px;"></i>
+					     </div>
+				
+				        <!-- Necessário para funcionar (Não remover) -->
+						<div class="col-xs-4"   style="padding-bottom:1px;">
+				                 <a style="width:100%;" ng-click="clickItemMenu(item.path)"nav-click>
+				                 <i class="fa fa-{{item.icon}} fa-2x info" aria-hidden="true"></i>
+								 <br>{{item.label}}</a>
+					   </div>
+					   <div class="col-xs-4"   style="padding-bottom:1px;">
+				                 <a style="width:100%;" ng-click="clickItemMenu(item.path)"nav-click>
+				                 <i class="fa fa-{{item.icon}} fa-2x info" aria-hidden="true"></i>
+								 <br>{{item.label}}</a>
+					   </div>
+					  
+					   <!-- // Necessário para funcionar (Não remover) -->
+					   
+					   <vertical-space></vertical-space>
+					    
+				       <div class="col-xs-12"><hr></hr></div>
+		               <div class="col-xs-4"  ng-repeat="item in itens" style="padding-bottom:19px;">
+			                 <a class="btn btn-mobile-menu ripple" style="width:100%;" ng-click="clickItemMenu(item.path)"nav-click>
+			                 <i class="fa fa-{{item.icon}} fa-2x info" aria-hidden="true"></i>
+							 <br><strong>{{item.label}}</strong></a>
+					   </div>
+					  
+		               <vertical-space></vertical-space>
+		               
+						<div class="col-xs-12"><hr></hr></div>
+						
+		
+						 
+						 <!-- 
+						 <div class="col-xs-4" >
+			                 <a button-tutorial   class="btn btn-mobile-menu drift-open-chat" style="width:100%;" nav-click>
+			                 <i class="fa fa-film fa-2x info" aria-hidden="true"></i>
+									<br>Vídeos</a>
+						 </div>
+						  -->
+						 
+						 <div class="col-xs-4" >
+			                 <a class="btn btn-mobile-menu" style="width:100%;" ng-click="logOut()" nav-click>
+			                 <i class="fa fa-sign-out fa-2x info" aria-hidden="true"></i>
+									<br>
+									<strong>Sair do sistema</strong></a>
+						 </div>
+					</div>
+					
+					 
+				<!-- 
+                <a class="navbar-brand" href="#/inicio"><img width="89" src="logo-albar.png"/></a>
+                 -->
+				<div class="only-mobile">
+					<a ng-if="atualPage!='Inicio'" class="navbar-brand"
+						ng-click="goToPageAnt(pageAnt)" style="color: #FBF7F7;"><i
+						class="fa fa-arrow-left" aria-hidden="true"></i></a> <a
+						ng-if="atualPage!='Inicio'" class="navbar-brand label-atual-page-mobile"
+						style="color: #FBF7F7;">
+						<span ng-show="!loadingSpinner || loadingSpinner==false"  style="margin-left:-15px;font-size:0.9em;">{{atualPage}}</span>
+						<i ng-show="loadingSpinner==true" class="fa fa-spinner faa-spin animated" aria-hidden="true"></i>
+						<network-button-status></network-button-status>
+						
+					 </a>
+				</div>
+				
+				
+					
+			</div>
+			    
+			
+			<!-- Menu Direito Topop -->
+			<div class="only-desktop">
+				<div class="breadcumb item-menu-top">
+				       <div class="dropdown">
+								<button ng-disabled="routeHistory.length<1 || !routeHistory" class="btn btn-primary dropdown-toggle btn-escolher-filial" style="background-color: #3276b1;" type="button" data-toggle="dropdown">
+								   <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+								   <i class="text-small">você está em: </i>
+								   <strong>{{atualPage||'Início' |uppercase}}</strong>
+								   
+								  <i ng-show="loadingSpinner==true" class="fa fa-spinner faa-spin animated" aria-hidden="true"></i>
+								   
+								  <span class="caret"></span></button>
+									<ul class="dropdown-menu" ng-if="routeHistory.length>1">
+										<li class="list-group-item text-muted"  ng-if="r.label!=atualPage &&  r.path!='/login'"ng-repeat="r in routeHistory | reverse">
+										    <a  style="background-color:transparent" ng-click="clickItemMenu(r.path)"><i class="fa fa-clock-o"></i>  {{r.label}}</a>
+										</li>
+									</ul>
+						</div>
+				  </div>
+				  <st-top-menu class="only-desktop"></st-top-menu>
+			  </div>
+			  
+			
+
+
+<!-- Menu desktop -->
+
+</nav>
+</div>
+
+
