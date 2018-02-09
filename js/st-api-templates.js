@@ -400,6 +400,11 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('global/st-api/st-util/template-module/inputForm.html',
+    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input ng-model=\"ngModel\" class=\"form-control\"></div>"
+  );
+
+
   $templateCache.put('global/st-api/st-util/template-module/itemSelection.html',
     "<meta charset=\"UTF-8\"><div class=\"st-item-selection\"><p style=\"margin:0px\"><span class=\"text-small text-muted-2\"><a ng-click=\"setPagina(0)\" ng-disabled=\"pagina==0\" tooltip=\"Primeira Página\" class=\"btn btn-xs\"><i class=\"text-muted-2 fa fa-angle-double-left fa-2x\" aria-hidden=\"true\"></i></a></span> <span class=\"text-small text-muted-2\"><a ng-disabled=\"pagina==0\" ng-click=\"setPagina(pagina -1)\" tooltip=\"Anterior\" class=\"btn btn-xs\"><i class=\"text-muted-2 fa fa-angle-left fa-2x\" aria-hidden=\"true\"></i></a></span> <a ng-click=\"selecionarItem(item)\" class=\"btn btn-xs\" ng-class=\"{'btn-default':$index % 2==0,'btn-info':$index % 2!=0}\" ng-repeat=\"item in itens\" class=\"text-small\">{{item[label]}} <strong ng-if=\"extraLabel\">({{item[extraLabel]}})</strong> </a><span class=\"text-small text-muted-2\"><a ng-click=\"setPagina(pagina +1)\" tooltip=\"Próxima\" class=\"btn btn-xs\"><i class=\"text-muted-2 fa fa-angle-right fa-2x\" aria-hidden=\"true\"></i></a></span></p></div>"
   );
