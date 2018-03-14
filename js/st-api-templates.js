@@ -1,13 +1,23 @@
 angular.module('adm').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('global/st-api/app-autocomplete/template-module/autoComplete.html',
+    "<div class=\"form-group\"><label>{{label}}</label><button ng-click=\"openBusca()\" class=\"form-control {{extraClass}} text-left\" ng-class=\"{'text-muted':placeHolder}\">{{ngModel[attr] || ngModel || placeHolder}}</button></div>"
+  );
+
+
   $templateCache.put('global/st-api/app-autocomplete/template-module/autoCompleteObject.html',
     "<button ng-click=\"openBusca()\" class=\"form-control {{extraClass}} text-left\" ng-class=\"{'text-muted':placeHolder}\">{{ngModel[label] || ngModel || placeHolder}}</button>"
   );
 
 
+  $templateCache.put('global/st-api/app-autocomplete/template-module/buscaAutoComplete.html',
+    "<div class=\"busca-auto-complete\"><div class=\"modal-header\"><div class=\"col-lg-1 col-xs-1\" style=\"padding-left:3px;padding-right:3px;margin-top:5px\"><a class=\"ripple\" ng-click=\"fecharModal(this)\" style=\"color: #FBF7F7;font-size:20px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a></div><div class=\"col-lg-11 col-xs-11\" style=\"padding-left:9px;padding-right:0px;width:89%\"><div class=\"input-group\"><input id=\"{{idInput}}\" ng-change=\"buscarItem(labelValue)\" ng-model-options=\"{debounce: 500}\" ng-model=\"labelValue\" autocomplete=\"off\" placeholder=\"{{'Informe um termo para buscar'}}\" class=\"form-control\" focus-me=\"true\"> <span ng-show=\"labelValue\" class=\"input-group-btn\"><button type=\"button\" ng-click=\"labelValue='';buscarItem('')\" class=\"btn btn-default btn-busca-map-limpa text-muted input-primary\" style=\"height:42px\"><i class=\"fa fa-trash-o\"></i></button></span></div></div></div><div class=\"modal-body\"><div class=\"row\"></div><!-- aba de resultados --><div ng-show=\"aba=='resultados' ||!aba\" class=\"col-lg-12 auto-complete-inline\"><div class=\"pull-left\" style=\"margin-left:5px;padding:5px 0px 5px 0px\"><a ng-show=\"labelValue.length>0 && salvandoItem!=true\" ng-click=\"cadItem(labelValue, auxItemFilial.allFilials, this)\" class=\"btn btn-secondary\"><i class=\"fa fa-plus-square-o\" aria-hidden=\"true\"></i> cadastrar <strong>\"{{labelValue}}\"</strong></a><label ng-show=\"salvandoItem == true\">Cadastrando item <i class=\"fa fa-refresh faa-spin animated\" aria-hidden=\"true\"></i></label></div><!-- Resultados --><ul ng-show=\"obs.length>0 &&(!hideResults || hideResults==false)\" class=\"list-group\" style=\"padding:5px\"><div class=\"row\"></div><li ng-repeat=\"item in obs\" class=\"list-group-item generic-transition\" ng-click=\"selecionarItem(item, this)\" style=\"height:55px\"><strong>{{item[1]}}</strong><br><span ng-show=\"subLabel\" class=\"text-small text-muted\">{{subLabel.label}}: {{item[2]}}</span></li></ul></div></div></div>"
+  );
+
+
   $templateCache.put('global/st-api/app-autocomplete/template-module/buscaAutoCompleteObject.html',
-    "<div class=\"busca-auto-complete\"><div class=\"modal-header\"><div class=\"col-lg-1 col-xs-1\" style=\"padding-left:3px;padding-right:3px;margin-top:5px\"><a class=\"ripple\" ng-click=\"fecharModal(this)\" style=\"color: #FBF7F7;font-size:20px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a></div><div class=\"col-lg-11 col-xs-11\" style=\"padding-left:9px;padding-right:0px;width:89%\"><div class=\"input-group\"><input id=\"{{idInput}}\" ng-change=\"buscarItem(labelValue)\" ng-model-options=\"{debounce: 500}\" ng-model=\"labelValue\" autocomplete=\"off\" placeholder=\"{{placeHolder}}\" class=\"form-control\" focus-me=\"true\"> <span ng-show=\"labelValue\" class=\"input-group-btn\"><button type=\"button\" ng-click=\"labelValue='';buscarItem('')\" class=\"btn btn-default btn-busca-map-limpa text-muted input-primary\" style=\"height:42px\"><i class=\"fa fa-trash-o\"></i></button></span></div></div></div><div class=\"modal-body\"><div class=\"row\"></div><!-- aba de resultados --><div ng-show=\"aba=='resultados' ||!aba\" class=\"col-lg-12 auto-complete-inline\"><div class=\"pull-left\" style=\"margin-left:5px;padding:5px 0px 5px 0px\"><a ng-show=\"labelValue.length>0 && salvandoItem!=true\" ng-click=\"cadItem(labelValue, auxItemFilial.allFilials, this)\" class=\"btn btn-secondary\"><i class=\"fa fa-plus-square-o\" aria-hidden=\"true\"></i> cadastrar <strong>\"{{labelValue}}\"</strong></a><label ng-show=\"salvandoItem == true\">Cadastrando item <i class=\"fa fa-refresh faa-spin animated\" aria-hidden=\"true\"></i></label></div><!-- Resultados --><ul ng-show=\"obs.length>0 &&(!hideResults || hideResults==false)\" class=\"list-group\" style=\"padding:5px\"><div class=\"row\"></div><li ng-repeat=\"item in obs\" class=\"list-group-item generic-transition\" ng-click=\"selecionarItem(item)\" style=\"height:55px\"><strong>{{item[1]}}</strong><br><span ng-show=\"subLabel\" class=\"text-small text-muted\">{{subLabel.label}}: {{item[2]}}</span></li></ul></div></div></div>"
+    "<div class=\"busca-auto-complete\"><div class=\"modal-header\"><div class=\"col-lg-1 col-xs-1\" style=\"padding-left:3px;padding-right:3px;margin-top:5px\"><a class=\"ripple\" ng-click=\"fecharModal(this)\" style=\"color: #FBF7F7;font-size:20px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a></div><div class=\"col-lg-11 col-xs-11\" style=\"padding-left:9px;padding-right:0px;width:89%\"><div class=\"input-group\"><input id=\"{{idInput}}\" ng-change=\"buscarItem(labelValue)\" ng-model-options=\"{debounce: 500}\" ng-model=\"labelValue\" autocomplete=\"off\" placeholder=\"{{'Informe um termo para buscar'}}\" class=\"form-control\" focus-me=\"true\"> <span ng-show=\"labelValue\" class=\"input-group-btn\"><button type=\"button\" ng-click=\"labelValue='';buscarItem('')\" class=\"btn btn-default btn-busca-map-limpa text-muted input-primary\" style=\"height:42px\"><i class=\"fa fa-trash-o\"></i></button></span></div></div></div><div class=\"modal-body\"><div class=\"row\"></div><!-- aba de resultados --><div ng-show=\"aba=='resultados' ||!aba\" class=\"col-lg-12 auto-complete-inline\"><div class=\"pull-left\" style=\"margin-left:5px;padding:5px 0px 5px 0px\"><a ng-show=\"labelValue.length>0 && salvandoItem!=true\" ng-click=\"cadItem(labelValue, auxItemFilial.allFilials, this)\" class=\"btn btn-secondary\"><i class=\"fa fa-plus-square-o\" aria-hidden=\"true\"></i> cadastrar <strong>\"{{labelValue}}\"</strong></a><label ng-show=\"salvandoItem == true\">Cadastrando item <i class=\"fa fa-refresh faa-spin animated\" aria-hidden=\"true\"></i></label></div><!-- Resultados --><ul ng-show=\"obs.length>0 &&(!hideResults || hideResults==false)\" class=\"list-group\" style=\"padding:5px\"><div class=\"row\"></div><li ng-repeat=\"item in obs\" class=\"list-group-item generic-transition\" ng-click=\"selecionarItem(item)\" style=\"height:55px\"><strong>{{item[1]}}</strong><br><span ng-show=\"subLabel\" class=\"text-small text-muted\">{{subLabel.label}}: {{item[2]}}</span></li></ul></div></div></div>"
   );
 
 
@@ -280,6 +290,21 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('global/st-api/input-form/template-module/inputFormDate.html',
+    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input st-input tipo=\"data\" ng-model=\"ngModel\" class=\"form-control\"></div>"
+  );
+
+
+  $templateCache.put('global/st-api/input-form/template-module/inputFormMoney.html',
+    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input type=\"tel\" ui-number-mask=\"2\" ng-model=\"ngModel\" class=\"form-control\"></div>"
+  );
+
+
+  $templateCache.put('global/st-api/input-form/template-module/inputFormText.html',
+    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input ng-model=\"ngModel\" class=\"form-control\"></div>"
+  );
+
+
   $templateCache.put('global/st-api/st-checkbox/template-module/stCheckbox.html',
     "<div class=\"[ form-group ]\"><input type=\"checkbox\" style=\"display:none\" name=\"fancy-checkbox-primary\" ng-model=\"ngModel\" id=\"fancy-checkbox-primary\" autocomplete=\"off\"><div class=\"[ btn-group ]\"><label for=\"fancy-checkbox-primary\" class=\"[ btn btn-primary ]\" style=\"background-color: #357ebd!important\"><span class=\"[ glyphicon glyphicon-ok ]\" style=\"color:white;font-size:9px;width:10px;margin-left: -3px\"></span> <span></span></label><label for=\"fancy-checkbox-primary\" class=\"[ btn btn-default active ]\" style=\"font-size:12px!important;height:25px;padding:5px\">{{label}}</label></div></div>"
   );
@@ -341,7 +366,7 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-nav/template-module/stNav.html',
-    "<meta charset=\"UTF-8\"><ul class=\"nav nav-tabs\" role=\"tablist\"><li ng-repeat=\"tab in tabs\" role=\"presentation\" ng-class=\"{'active':activeTab==$index}\"><a ng-click=\"alterarTab($index)\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\"><i ng-if=\"activeTab==$index\" class=\"fa fa-check\"></i> {{tab.label}}</a></li></ul>"
+    "<meta charset=\"UTF-8\"><ul class=\"nav nav-tabs\" role=\"tablist\"><li ng-repeat=\"tab in tabs\" role=\"presentation\" ng-class=\"{'active':activeTab==$index}\"><a ng-click=\"alterarTab($index)\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\"><i class=\"fa fa-{{tab.icon}}\"></i> {{tab.label}}</a></li></ul>"
   );
 
 
@@ -397,11 +422,6 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('global/st-api/st-util/template-module/inputEdit.html',
     "<meta charset=\"UTF-8\"><div ng-show=\"mostraValor==true\" class=\"form-group\"><i class=\"fa fa-{{icon}}\" aria-hidden=\"true\"></i> {{label}} <strong ng-if=\"type=='password'\">*********</strong> <strong ng-if=\"!type || type!='password'\">{{ngModel}}</strong> <button type=\"button\" ng-click=\"mostraValor=false\" class=\"btn btn-default btn-xs\">Alterar <i class=\"fa fa-edit\"></i></button></div><div ng-show=\"mostraValor==false\" class=\"form-group\"><label class=\"text-muted text-small\"><i class=\"fa fa-{{icon}}\" aria-hidden=\"true\"></i> {{label}}</label><input type=\"{{type||'text'}}\" ng-model=\"ngModel\" type=\"text\" class=\"form-control\" placeholder=\"{{label}}\"></div>"
-  );
-
-
-  $templateCache.put('global/st-api/st-util/template-module/inputForm.html',
-    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input ng-model=\"ngModel\" class=\"form-control\"></div>"
   );
 
 
@@ -516,6 +536,11 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('global/st-api/test-user/template-module/testeUserResposta.html',
     "<meta charset=\"UTF-8\"><modal-content ok-action=\"salvar\" item=\"test\" titulo=\"'Execução de Teste'\" modal-instance=\"this\"><div class=\"col-lg-2 only-desktop\"></div><div class=\"col-lg-8\"><div class=\"form-group col-lg-12\"><label>Como foi realizar esta tarefa?</label><select ng-model=\"test.nivelDificuldadeFromUser\" class=\"form-control\"><option value=\"4\">Muito Difícil</option><option value=\"3\">Difícil</option><option value=\"2\">Nem fácil nem difícil</option><option value=\"1\">Muito Fácil</option></select></div><div class=\"form-group col-lg-12\"><button class=\"btn btn-secondary\" ng-click=\"salvar()\">Pronto</button></div></div><div class=\"col-lg-2 only-desktop\"></div></modal-content>"
+  );
+
+
+  $templateCache.put('global/st-api/test-user/template-route/test.html',
+    "<meta charset=\"UTF-8\">pessoa: {{pessoa}}<auto-complete-object initial-busca=\"defaultClienteLabel  || 'Outros'\" extra-class=\"'input-lg'\" inline=\"true\" tipo=\"'select'\" label-cad=\"'Cadastrar novo Cliente'\" place-holder=\"'Primeiro, digite o nome do cliente'\" object-op=\"'cliente'\" querys=\"\" label=\"'nome'\" ng-model=\"pessoa\">"
   );
 
 
