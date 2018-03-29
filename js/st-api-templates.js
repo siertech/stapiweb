@@ -1,8 +1,8 @@
-angular.module('adm').run(['$templateCache', function($templateCache) {
+angular.module('stApi').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('global/st-api/app-autocomplete/template-module/autoComplete.html',
-    "<div class=\"form-group\"><label>{{label}}</label><button ng-click=\"openBusca()\" class=\"form-control {{extraClass}} text-left\" ng-class=\"{'text-muted':placeHolder}\">{{ngModel[attr] || ngModel || placeHolder}}</button></div>"
+    "<div class=\"form-group\"><label>{{label}}</label><button ng-click=\"openBusca()\" class=\"form-control {{extraClass}} text-left\" ng-class=\"{'text-muted':placeHolder}\">{{showValue || placeHolder}}</button></div>"
   );
 
 
@@ -12,7 +12,7 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/app-autocomplete/template-module/buscaAutoComplete.html',
-    "<div class=\"busca-auto-complete\"><div class=\"modal-header\"><div class=\"col-lg-1 col-xs-1\" style=\"padding-left:3px;padding-right:3px;margin-top:5px\"><a class=\"ripple\" ng-click=\"fecharModal(this)\" style=\"color: #FBF7F7;font-size:20px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a></div><div class=\"col-lg-11 col-xs-11\" style=\"padding-left:9px;padding-right:0px;width:89%\"><div class=\"input-group\"><input id=\"{{idInput}}\" ng-change=\"buscarItem(labelValue)\" ng-model-options=\"{debounce: 500}\" ng-model=\"labelValue\" autocomplete=\"off\" placeholder=\"{{'Informe um termo para buscar'}}\" class=\"form-control\" focus-me=\"true\"> <span ng-show=\"labelValue\" class=\"input-group-btn\"><button type=\"button\" ng-click=\"labelValue='';buscarItem('')\" class=\"btn btn-default btn-busca-map-limpa text-muted input-primary\" style=\"height:42px\"><i class=\"fa fa-trash-o\"></i></button></span></div></div></div><div class=\"modal-body\"><div class=\"row\"></div><!-- aba de resultados --><div ng-show=\"aba=='resultados' ||!aba\" class=\"col-lg-12 auto-complete-inline\"><div class=\"pull-left\" style=\"margin-left:5px;padding:5px 0px 5px 0px\"><a ng-show=\"labelValue.length>0 && salvandoItem!=true\" ng-click=\"cadItem(labelValue, auxItemFilial.allFilials, this)\" class=\"btn btn-secondary\"><i class=\"fa fa-plus-square-o\" aria-hidden=\"true\"></i> cadastrar <strong>\"{{labelValue}}\"</strong></a><label ng-show=\"salvandoItem == true\">Cadastrando item <i class=\"fa fa-refresh faa-spin animated\" aria-hidden=\"true\"></i></label></div><!-- Resultados --><ul ng-show=\"obs.length>0 &&(!hideResults || hideResults==false)\" class=\"list-group\" style=\"padding:5px\"><div class=\"row\"></div><li ng-repeat=\"item in obs\" class=\"list-group-item generic-transition\" ng-click=\"selecionarItem(item, this)\" style=\"height:55px\"><strong>{{item[1]}}</strong><br><span ng-show=\"subLabel\" class=\"text-small text-muted\">{{subLabel.label}}: {{item[2]}}</span></li></ul></div></div></div>"
+    "<div class=\"busca-auto-complete\"><div class=\"modal-header\"><div class=\"col-lg-1 col-xs-1\" style=\"padding-left:3px;padding-right:3px;margin-top:5px\"><a class=\"ripple\" ng-click=\"fecharModal(this)\" style=\"color: #FBF7F7;font-size:20px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a></div><div class=\"col-lg-11 col-xs-11\" style=\"padding-left:9px;padding-right:0px;width:89%\"><div class=\"input-group\"><input id=\"{{idInput}}\" ng-change=\"buscarItem(labelValue)\" ng-model-options=\"{debounce: 500}\" ng-model=\"labelValue\" autocomplete=\"off\" placeholder=\"{{placeHolderBusca}}\" class=\"form-control\" focus-me=\"true\"> <span ng-show=\"labelValue\" class=\"input-group-btn\"><button type=\"button\" ng-click=\"labelValue='';buscarItem('')\" class=\"btn btn-default btn-busca-map-limpa text-muted input-primary\" style=\"height:42px\"><i class=\"fa fa-trash-o\"></i></button></span></div></div></div><div class=\"modal-body\"><div class=\"row\"></div><!-- aba de resultados --><div ng-show=\"aba=='resultados' ||!aba\" class=\"col-lg-12 auto-complete-inline\"><div class=\"pull-left\" style=\"margin-left:5px;padding:5px 0px 5px 0px\"><a ng-show=\"labelValue.length>0 && salvandoItem!=true\" ng-click=\"cadItem(labelValue, auxItemFilial.allFilials, this)\" class=\"btn btn-secondary\"><i class=\"fa fa-plus-square-o\" aria-hidden=\"true\"></i> cadastrar <strong>\"{{labelValue}}\"</strong></a><label ng-show=\"salvandoItem == true\">Cadastrando item <i class=\"fa fa-refresh faa-spin animated\" aria-hidden=\"true\"></i></label></div><!-- Resultados --><ul ng-show=\"obs.length>0 &&(!hideResults || hideResults==false)\" class=\"list-group\" style=\"padding:5px\"><div class=\"row\"></div><li ng-repeat=\"item in obs\" class=\"list-group-item generic-transition\" ng-click=\"selecionarItem(item, this)\" style=\"height:55px\"><strong>{{item[1] || item[attr] || getValueOfNivel(item,attr)}}</strong><br><span ng-show=\"subLabel\" class=\"text-small text-muted\">{{subLabel.label}}: {{item[2]}}</span></li></ul></div></div></div>"
   );
 
 
@@ -57,7 +57,7 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/app-filial/template/openChangeFilial.html',
-    "<meta charset=\"UTF-8\"><modal-content icone-titulo=\"'line-chart'\" titulo=\"'Filial/Operador'\" modal-instance=\"this\"><div class=\"form-group col-lg-6 col-xs-6\"><label><i class=\"fa fa-home\"></i> Filial</label><select ng-model=\"filialEsc\" class=\"form-control\" ng-options=\"f as  f.xNome  for f in filiais track by f.id\"></select></div><div class=\"form-group col-lg-6 col-xs-6\"><label><i class=\"fa fa-user-o\"></i> Operador (Apenas filtros de listagem)</label><select ng-model=\"operadorEsc\" class=\"form-control\" ng-options=\"o as  o.nome for o in operadores track by o.id\"></select></div><vertical-space></vertical-space><div class=\"col-lg-6 pull-right\"><button ng-click=\"fecharModal()\" class=\"btn btn-default\"><i class=\"fa fa-undo\"></i> Cancelar</button> <button ng-click=\"alterarFilialAndOperador(filialEsc, operadorEsc)\" class=\"btn btn-primary\"><i class=\"fa fa-check\"></i> Aplicar</button></div></modal-content>"
+    "<meta charset=\"UTF-8\"><modal-content icone-titulo=\"'line-chart'\" titulo=\"'Filial/Operador'\" modal-instance=\"this\"><div class=\"form-group col-lg-6 col-xs-6\"><label><i class=\"fa fa-home\"></i> Filial</label><select ng-model=\"filialEsc\" class=\"form-control\" ng-options=\"f as  f.xNome  for f in filiais track by f.id\"></select></div><div class=\"form-group col-lg-6 col-xs-6\"><label><i class=\"fa fa-user-o\"></i> Operador</label><select ng-model=\"operadorEsc\" class=\"form-control\" ng-options=\"o as  o.nome for o in operadores track by o.id\"></select></div><vertical-space></vertical-space><div class=\"col-lg-6 pull-right\"><button ng-click=\"fecharModal()\" class=\"btn btn-default\"><i class=\"fa fa-undo\"></i> Cancelar</button> <button ng-click=\"alterarFilialAndOperador(filialEsc, operadorEsc)\" class=\"btn btn-primary\"><i class=\"fa fa-check\"></i> Aplicar</button></div></modal-content>"
   );
 
 
@@ -286,21 +286,44 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/card-list/template-module/cardListDirective.html',
-    "<meta charset=\"UTF-8\"><div class=\"panel pivo-panel\" ng-class=\"{'card-list-panel-par':vm.index%2!=0}\"><div class=\"panel-heading\"><div class=\"pull-left card-list-label-pivo\"><strong style=\"font-size:17px\" uib-tooltip=\"{{vm.labelPivo}}\"><i class=\"fa fa-{{vm.icon||'list'}}\"></i> {{vm.labelPivo|uppercase}}</strong></div><div ng-show=\"vm.hideButtons!=true\" class=\"pull-right\"><a id=\"card_edit_{{vm.index}}\" ng-click=\"vm.editFunction(vm.ob)\" class=\"btn-option-card-list\"><i class=\"fa fa-edit\"></i></a> <a id=\"card_delete_{{vm.index}}\" confirm=\"Tem certeza que deseja deletar este item?\" ng-click=\"vm.deleteFunction(vm.ob)\" class=\"btn-option-card-list\"><i class=\"fa fa-trash\"></i></a> <a id=\"card_info_{{vm.index}}\" button-info-ob objeto=\"{{vm.ob}}\" ng-click=\"vm.openDetalhePedido(r)\" class=\"btn-option-card-list\"><i class=\"fa fa-info-circle\"></i></a></div><div class=\"row\"></div><div class=\"pivo-panel-separator\"></div></div><div class=\"panel-body\" ng-transclude></div></div>"
+    "<meta charset=\"UTF-8\"><div class=\"panel pivo-panel\" ng-class=\"{'card-list-panel-par':vm.index%2!=0}\"><div class=\"panel-heading\"><div class=\"pull-left card-list-label-pivo\"><strong style=\"font-size:17px\" uib-tooltip=\"{{vm.labelPivo}}\"><i class=\"fa fa-{{vm.icon||'list'}}\"></i> {{vm.labelPivo|uppercase}}</strong></div><div ng-show=\"vm.hideButtons!=true\" class=\"pull-right\"><crud-tools ob=\"vm.ob\" delete-function=\"vm.deleteFunction\" edit-function=\"vm.editFunction\"></crud-tools><!--  \r" +
+    "\n" +
+    "			     <a  ng-click=\"vm.editFunction(vm.ob)\"  class=\"btn-option-card-list\"  ><i class=\"fa fa-edit\"></i></a>\r" +
+    "\n" +
+    "			     <a  confirm=\"Tem certeza que deseja deletar este item?\" ng-click=\"vm.deleteFunction(vm.ob)\" class=\"btn-option-card-list\"   ><i class=\"fa fa-trash\"></i></a>\r" +
+    "\n" +
+    "			     <a  button-info-ob  objeto=\"{{vm.ob}}\"  class=\"btn-option-card-list\"  ><i class=\"fa fa-info-circle\"></i></a>\r" +
+    "\n" +
+    "			     --></div><div class=\"row\"></div><div class=\"pivo-panel-separator\"></div></div><div class=\"panel-body\" ng-transclude></div></div>"
   );
 
 
-  $templateCache.put('global/st-api/input-form/template-module/inputFormDate.html',
+  $templateCache.put('global/st-api/crud-tools/template-module/crudTools.html',
+    "<meta charset=\"UTF-8\"><a ng-click=\"vm.editFunction(vm.ob)\" class=\"btn-option-card-list\"><i class=\"fa fa-edit\"></i></a> <a confirm=\"Tem certeza que deseja deletar este item?\" ng-click=\"vm.deleteFunction(vm.ob)\" class=\"btn-option-card-list\"><i class=\"fa fa-trash\"></i></a> <a button-info-ob objeto=\"{{vm.ob}}\" class=\"btn-option-card-list\"><i class=\"fa fa-info-circle\"></i></a>"
+  );
+
+
+  $templateCache.put('global/st-api/generic-input/template-module/inputCheck.html',
+    "<div class=\"[ form-group ]\"><input ng-true-value=\"{{ngTrueValue || 1}}\" ng-false-value=\"{{ngFalseValue ||0}}\" type=\"checkbox\" style=\"display:none\" name=\"fancy-checkbox-primary\" ng-model=\"ngModel\" id=\"fancy-checkbox-primary\" autocomplete=\"off\"><div class=\"[ btn-group ]\"><label for=\"fancy-checkbox-primary\" class=\"[ btn btn-primary ]\" style=\"background-color: #357ebd!important\"><span class=\"[ glyphicon glyphicon-ok ]\" style=\"color:white;font-size:10px;width:10px;margin-left: -3px\"></span> <span></span></label><label for=\"fancy-checkbox-primary\" class=\"[ btn btn-default active ]\" style=\"font-size:12px!important;height:25px;padding:5px\">{{label}}</label></div></div>"
+  );
+
+
+  $templateCache.put('global/st-api/generic-input/template-module/inputDate.html',
     "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input st-input tipo=\"data\" ng-model=\"ngModel\" class=\"form-control\"></div>"
   );
 
 
-  $templateCache.put('global/st-api/input-form/template-module/inputFormMoney.html',
+  $templateCache.put('global/st-api/generic-input/template-module/inputDouble.html',
     "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input type=\"tel\" ui-number-mask=\"2\" ng-model=\"ngModel\" class=\"form-control\"></div>"
   );
 
 
-  $templateCache.put('global/st-api/input-form/template-module/inputFormText.html',
+  $templateCache.put('global/st-api/generic-input/template-module/inputInt.html',
+    "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input type=\"tel\" ng-model=\"ngModel\" class=\"form-control\"></div>"
+  );
+
+
+  $templateCache.put('global/st-api/generic-input/template-module/inputString.html',
     "<meta charset=\"UTF-8\"><div class=\"form-group\"><label>{{label}}</label><input ng-model=\"ngModel\" class=\"form-control\"></div>"
   );
 
@@ -311,42 +334,32 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-filter-map/template-module/stFilterMap.html',
-    "<meta charset=\"UTF-8\"><!-- Campo de busca principal(Especial) --><div class=\"filter-map text-center\"><form ng-submit=\"buscarEspecial(buscaEspecial)\"><div class=\"input-group\" style=\"z-index:1\"><input id=\"busca\" st-input tipo=\"{{infoBusca.tipo}}\" class=\"form-control input-busca-map\" ng-model=\"infoBusca.value\" ng-model-options=\"{debounce: 500}\" ng-change=\"buscar(infoBusca)\" placeholder=\"{{infoBusca.placeholder}}\"> <span id=\"span-limpa-busca\" ng-show=\"infoBusca.value\" class=\"input-group-btn\"><button id=\"btn-limpa-busca\" type=\"button\" ng-click=\"infoBusca.value='';buscar(infoBusca)\" class=\"btn btn-default btn-busca-map-limpa text-muted\">x</button></span> <span class=\"input-group-btn\"><button id=\"btn-change-filtros\" class=\"btn btn-block btn-default dropdown-toggle\" style=\"width:35px;height:42px\" type=\"button\" data-toggle=\"dropdown\"><span><i class=\"fa fa-bars info\" aria-hidden=\"true\"></i></span></button><ul class=\"dropdown-menu list-group pull-right\" style=\"padding:5px\"><li ng-repeat=\"info in filtros\" class=\"list-group-item\" ng-click=\"changeInfoBusca(info)\"><strong>{{info.placeholder}}</strong> <i ng-show=\"infoBusca.attr==info.attr\" class=\"fa fa-check-circle-o\" aria-hidden=\"true\" style=\"color:var(--secondary-color)\"></i></li></ul></span></div></form></div>"
+    "<meta charset=\"UTF-8\"><!-- Campo de busca principal(Especial) --><div class=\"filter-map text-center\"><form ng-submit=\"buscarEspecial(buscaEspecial)\"><div class=\"input-group\" style=\"z-index:1\"><input id=\"busca\" st-input tipo=\"{{infoBusca.tipo}}\" class=\"form-control input-busca-map\" ng-model=\"infoBusca.value\" ng-model-options=\"{debounce: 500}\" ng-change=\"buscar(infoBusca)\" placeholder=\"{{infoBusca.placeholder}}\"> <span id=\"span-limpa-busca\" ng-show=\"infoBusca.value\" class=\"input-group-btn\"><button id=\"btn-limpa-busca\" type=\"button\" ng-click=\"infoBusca.value='';buscar(infoBusca)\" class=\"btn btn-default btn-busca-map-limpa text-muted\">x</button></span> <span class=\"input-group-btn\"><button id=\"btn-change-filtros\" class=\"btn btn-block btn-default dropdown-toggle\" style=\"width:35px;height:42px;border-bottom-right-radius: 5px!important;border-top-right-radius: 5px!important\" type=\"button\" data-toggle=\"dropdown\"><span><i class=\"fa fa-ellipsis-v\"></i></span></button><ul class=\"dropdown-menu list-group pull-right\" style=\"padding:5px\"><li ng-repeat=\"info in filtros\" class=\"list-group-item\" ng-click=\"changeInfoBusca(info)\"><strong>{{info.placeholder}}</strong> <i ng-show=\"infoBusca.attr==info.attr\" class=\"fa fa-check-circle-o\" aria-hidden=\"true\" style=\"color:var(--secondary-color)\"></i></li></ul></span></div></form></div>"
+  );
+
+
+  $templateCache.put('global/st-api/st-menu/template-module/breadcumb.html',
+    "<meta charset=\"UTF-8\"><div class=\"breadcumb item-menu-top\"><div class=\"dropdown\"><button ng-disabled=\"routeHistory.length<1 || !routeHistory\" class=\"btn btn-primary dropdown-toggle btn-escolher-filial\" style=\"background-color: #3276b1\" type=\"button\" data-toggle=\"dropdown\"><i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i> <i class=\"text-small\">você está em: </i><strong>{{atualPage||'Início' |uppercase}}</strong> <i ng-show=\"loadingSpinner==true\" class=\"fa fa-spinner faa-spin animated\" aria-hidden=\"true\"></i> <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" ng-if=\"routeHistory.length>1\"><li class=\"list-group-item text-muted\" ng-if=\"r.label!=atualPage &&  r.path!='/login'\" ng-repeat=\"r in routeHistory | reverse\"><a style=\"background-color:transparent\" ng-click=\"clickItemMenu(r.path)\"><i class=\"fa fa-clock-o\"></i> {{r.label}}</a></li></ul></div></div>"
+  );
+
+
+  $templateCache.put('global/st-api/st-menu/template-module/buttonMenuCollapse.html',
+    "<meta charset=\"UTF-8\"><button type=\"button\" id=\"button-menu-mobile\" class=\"navbar-toggle btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" style=\"margin: 0px!important; font-size: 25px\"><i class=\"fa fa-bars fa-1.5x\" style=\"color:white\"></i></button>"
+  );
+
+
+  $templateCache.put('global/st-api/st-menu/template-module/menuContent.html',
+    "<meta charset=\"UTF-8\"><div class=\"pull-right\" style=\"margin:9px\"><i class=\"fa fa-times text-muted\" style=\"font-size:32px\"></i></div><div class=\"col-lg-12\"></div><div ng-transclude></div><!-- Necessário para funcionar (Não remover) --><div class=\"col-xs-4\" style=\"padding-bottom:1px\"><a style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br>{{item.label}}</a></div><div class=\"col-xs-4\" style=\"padding-bottom:1px\"><a style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br>{{item.label}}</a></div><!-- // Necessário para funcionar (Não remover) --><vertical-space></vertical-space><div class=\"col-xs-12\"><hr></div><div class=\"col-xs-4\" ng-repeat=\"item in itens\" style=\"padding-bottom:19px\"><a class=\"btn btn-mobile-menu ripple\" style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br><strong>{{item.label}}</strong></a></div><vertical-space></vertical-space><div class=\"col-xs-12\"><hr></div><div class=\"col-xs-4\"><a class=\"btn btn-mobile-menu\" style=\"width:100%\" ng-click=\"logOut()\" nav-click><i class=\"fa fa-sign-out fa-2x info\" aria-hidden=\"true\"></i><br><strong>Sair do sistema</strong></a></div>"
+  );
+
+
+  $templateCache.put('global/st-api/st-menu/template-module/mobileBreadcumb.html',
+    "<meta charset=\"UTF-8\"><a ng-if=\"atualPage!='Inicio'\" class=\"navbar-brand\" ng-click=\"goToPageAnt(pageAnt)\" style=\"color: #FBF7F7\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a> <a ng-if=\"atualPage!='Inicio'\" class=\"navbar-brand label-atual-page-mobile\" style=\"color: #FBF7F7\"><span ng-show=\"!loadingSpinner || loadingSpinner==false\" style=\"margin-left:-15px;font-size:0.9em\">{{atualPage}}</span> <i ng-show=\"loadingSpinner==true\" class=\"fa fa-spinner faa-spin animated\" aria-hidden=\"true\"></i><network-button-status></network-button-status></a>"
   );
 
 
   $templateCache.put('global/st-api/st-menu/template-module/stMenu.html',
-    "<meta charset=\"UTF-8\"><div><nav id=\"nav_principal\" ng-cloak ng-show=\"showMenu\" class=\"navbar navbar-default navbar-static-top\" role=\"navigation\" style=\"margin-bottom: 0; background-color: #EDEDED\"><div id=\"nav-header\" class=\"navbar-header\" style=\"padding-top: 0px; min-width: 200px\"><button ng-click=\"changeCollapse()\" type=\"button\" id=\"button-menu-mobile\" class=\"navbar-toggle btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" style=\"margin: 0px!important; font-size: 25px\"><i class=\"fa fa-bars fa-1.5x\" style=\"color:white\"></i> Menu</button><!-- Menu mobile --><div id=\"menu\" class=\"dropdown-menu menu-mobile pull-right\"><!-- \r" +
-    "\n" +
-    "				          <div class=\"pull-left\" style=\"margin:9px;\">\r" +
-    "\n" +
-    "				              <span class=\"text-muted\">\r" +
-    "\n" +
-    "				                     <strong><i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i> {{appVersion}}</strong>\r" +
-    "\n" +
-    "				              </span>\r" +
-    "\n" +
-    "				          </div>\r" +
-    "\n" +
-    "				          \r" +
-    "\n" +
-    "				           --><div class=\"pull-right\" style=\"margin:9px\"><i class=\"fa fa-times text-muted\" style=\"font-size:32px\"></i></div><!-- Necessário para funcionar (Não remover) --><div class=\"col-xs-4\" style=\"padding-bottom:1px\"><a style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br>{{item.label}}</a></div><div class=\"col-xs-4\" style=\"padding-bottom:1px\"><a style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br>{{item.label}}</a></div><!-- // Necessário para funcionar (Não remover) --><vertical-space></vertical-space><div class=\"col-xs-12\"><hr></div><div class=\"col-xs-4\" ng-repeat=\"item in itens\" style=\"padding-bottom:19px\"><a class=\"btn btn-mobile-menu ripple\" style=\"width:100%\" ng-click=\"clickItemMenu(item.path)\" nav-click><i class=\"fa fa-{{item.icon}} fa-2x info\" aria-hidden=\"true\"></i><br><strong>{{item.label}}</strong></a></div><vertical-space></vertical-space><div class=\"col-xs-12\"><hr></div><!-- \r" +
-    "\n" +
-    "						 <div class=\"col-xs-4\" >\r" +
-    "\n" +
-    "			                 <a button-tutorial   class=\"btn btn-mobile-menu drift-open-chat\" style=\"width:100%;\" nav-click>\r" +
-    "\n" +
-    "			                 <i class=\"fa fa-film fa-2x info\" aria-hidden=\"true\"></i>\r" +
-    "\n" +
-    "									<br>Vídeos</a>\r" +
-    "\n" +
-    "						 </div>\r" +
-    "\n" +
-    "						  --><div class=\"col-xs-4\"><a class=\"btn btn-mobile-menu\" style=\"width:100%\" ng-click=\"logOut()\" nav-click><i class=\"fa fa-sign-out fa-2x info\" aria-hidden=\"true\"></i><br><strong>Sair do sistema</strong></a></div></div><!-- \r" +
-    "\n" +
-    "                <a class=\"navbar-brand\" href=\"#/inicio\"><img width=\"89\" src=\"logo-albar.png\"/></a>\r" +
-    "\n" +
-    "                 --><div class=\"only-mobile\"><a ng-if=\"atualPage!='Inicio'\" class=\"navbar-brand\" ng-click=\"goToPageAnt(pageAnt)\" style=\"color: #FBF7F7\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a> <a ng-if=\"atualPage!='Inicio'\" class=\"navbar-brand label-atual-page-mobile\" style=\"color: #FBF7F7\"><span ng-show=\"!loadingSpinner || loadingSpinner==false\" style=\"margin-left:-15px;font-size:0.9em\">{{atualPage}}</span> <i ng-show=\"loadingSpinner==true\" class=\"fa fa-spinner faa-spin animated\" aria-hidden=\"true\"></i><network-button-status></network-button-status></a></div></div><!-- Menu Direito Topop --><div class=\"only-desktop\"><div class=\"breadcumb item-menu-top\"><div class=\"dropdown\"><button ng-disabled=\"routeHistory.length<1 || !routeHistory\" class=\"btn btn-primary dropdown-toggle btn-escolher-filial\" style=\"background-color: #3276b1\" type=\"button\" data-toggle=\"dropdown\"><i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i> <i class=\"text-small\">você está em: </i><strong>{{atualPage||'Início' |uppercase}}</strong> <i ng-show=\"loadingSpinner==true\" class=\"fa fa-spinner faa-spin animated\" aria-hidden=\"true\"></i> <span class=\"caret\"></span></button><ul class=\"dropdown-menu\" ng-if=\"routeHistory.length>1\"><li class=\"list-group-item text-muted\" ng-if=\"r.label!=atualPage &&  r.path!='/login'\" ng-repeat=\"r in routeHistory | reverse\"><a style=\"background-color:transparent\" ng-click=\"clickItemMenu(r.path)\"><i class=\"fa fa-clock-o\"></i> {{r.label}}</a></li></ul></div></div><st-top-menu class=\"only-desktop\"></st-top-menu></div><!-- Menu desktop --></nav></div>"
+    "<meta charset=\"UTF-8\"><div><nav id=\"nav_principal\" ng-cloak ng-show=\"showMenu\" class=\"navbar navbar-default navbar-static-top\" role=\"navigation\" style=\"margin-bottom: 0; background-color: #EDEDED\"><div id=\"nav-header\" class=\"navbar-header\" style=\"padding-top: 0px; min-width: 200px\"><div class=\"item-menu-top\" style=\"float:right\"><button-filial id=\"filial-list-principal\"></button-filial></div><button ng-click=\"changeCollapse()\" type=\"button\" id=\"button-menu-mobile\" class=\"navbar-toggle btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" style=\"margin: 0px!important; font-size: 25px\"><i class=\"fa fa-bars fa-1.5x\" style=\"color:white\"></i></button><menu-content id=\"menu\" class=\"dropdown-menu menu-mobile generic-transition pull-right\"><div class=\"col-xs-4\"><a id=\"button-entrada-mercadoria-mobile\" class=\"btn btn-mobile-menu btn-mobile-menu-destaque ripple\" style=\"width:100%;color: #ff8a01\" ng-click=\"atualizarEstoque()\"><i class=\"fa fa-truck fa-2x\" aria-hidden=\"true\"></i><br><strong>Entrada de merc.</strong></a></div><div class=\"col-xs-4\"><a id=\"button-entrada-mercadoria-mobile\" class=\"btn btn-mobile-menu btn-mobile-menu-destaque ripple\" style=\"width:100%;color: #ff8a01\" ng-click=\"atualizarEstoque()\"><i class=\"fa fa-truck fa-2x\" aria-hidden=\"true\"></i><br><strong>Entrada de merc.</strong></a></div><div class=\"col-xs-4\"><a id=\"button-entrada-mercadoria-mobile\" class=\"btn btn-mobile-menu btn-mobile-menu-destaque ripple\" style=\"width:100%;color: #ff8a01\" ng-click=\"atualizarEstoque()\"><i class=\"fa fa-truck fa-2x\" aria-hidden=\"true\"></i><br><strong>Entrada de merc.</strong></a></div></menu-content><div class=\"only-mobile\"><mobile-breadcumb></mobile-breadcumb></div><sync-cache-post></sync-cache-post></div><!-- Menu Direito Topop --><div class=\"only-desktop\"><breadcumb></breadcumb><st-top-menu class=\"only-desktop\"></st-top-menu></div></nav></div>"
   );
 
 
@@ -356,7 +369,7 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-modal/template-module/modalContent.html',
-    "<div class=\"modal-header\"><ul class=\"list-button-action-modal\"><li ng-show=\"okAction\"><button ng-disabled=\"disableOkButton || loadingOkAction==true\" class=\"btn btn-action-modal ripple\" ng-click=\"okAction(this)\"><i id=\"btn-ok-action\" ng-show=\"loadingOkAction !=true\" class=\"fa {{okActionIcon || 'fa-check'}}\"></i> <i ng-show=\"loadingOkAction==true\" class=\"fa fa-refresh faa-spin animated ng-hide\"></i> <span>{{okActionLabel || 'SALVAR' |uppercase}}</span></button></li></ul><h4 class=\"modal-title\"><a class=\"ripple\" ng-click=\"cancelAction(modalInstance)\" style=\"color: #FBF7F7;font-size:18px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a> <strong>{{titulo}}</strong></h4></div><div class=\"modal-body\" ng-transclude></div><div class=\"row\"></div><div ng-show=\"deleteAction && item.id\" class=\"button-mobile ripple\" tooltip-enable=\"true\" tooltip=\"Deletar este item\" tooltip-placement=\"left\"><a confirm=\"Tem certeza que deseja deletar este item?\" ng-click=\"deleteAction()\" style=\"background-color:#e12a0a!important\"><i class=\"fa fa-trash\"></i></a></div>"
+    "<div class=\"modal-header\"><ul class=\"list-button-action-modal\"><li ng-show=\"okAction\"><button ng-disabled=\"disableOkButton || loadingOkAction==true\" class=\"btn btn-action-modal ripple\" ng-click=\"okAction(this)\"><i id=\"btn-ok-action\" ng-show=\"loadingOkAction !=true\" class=\"fa {{okActionIcon || 'fa-check'}}\"></i> <i ng-show=\"loadingOkAction==true\" class=\"fa fa-refresh faa-spin animated ng-hide\"></i> <span>{{okActionLabel || 'SALVAR' |uppercase}}</span></button></li></ul><h4 class=\"modal-title\"><a class=\"ripple\" ng-click=\"cancelAction(modalInstance)\" style=\"color: #FBF7F7;font-size:18px;padding:9px\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></a> <strong>{{titulo}}</strong></h4></div><div class=\"modal-body\" ng-transclude></div><div class=\"row\"></div><div ng-if=\"deleteAction && item.id\"><vertical-space style=\"height:55px\"></vertical-space><div class=\"button-mobile ripple\" tooltip-enable=\"true\" tooltip=\"Deletar este item\" tooltip-placement=\"left\"><a confirm=\"Tem certeza que deseja deletar este item?\" ng-click=\"deleteAction()\" style=\"background-color:#e12a0a!important\"><i class=\"fa fa-trash\"></i></a></div></div>"
   );
 
 
@@ -441,7 +454,12 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-util/template-module/networkButtonStatus.html',
-    "<meta charset=\"UTF-8\"><button ng-show=\"online_status==false\" class=\"btn btn-xs btn-default\" style=\"color: #506479\"><i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> trabalhando offiline!</button>"
+    "<meta charset=\"UTF-8\"><button uib-tooltip=\"Você está offline\" ng-show=\"online_status==false\" class=\"btn btn-xs btn-default\" style=\"color: #506479\"><i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i></button>"
+  );
+
+
+  $templateCache.put('global/st-api/st-util/template-module/panel.html',
+    "<meta charset=\"UTF-8\"><div class=\"panel\"><div class=\"panel-body\" ng-transclude></div></div>"
   );
 
 
@@ -512,6 +530,11 @@ angular.module('adm').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('global/st-api/st-util/template-module/usuario-sistema/usuarioSistema.html',
     "<meta charset=\"UTF-8\"><button class=\"btn btn-default btn-xs dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"><i class=\"fa fa-user\"></i> <strong>{{usuarioSistema.nome||usuarioSistema.login|uppercase}}</strong> <span class=\"caret\"></span></button><ul class=\"dropdown-menu list-group pull-right\" style=\"padding:5px\"><li ng-click=\"logOut()\" class=\"list-group-item\">Sair <i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i></li><li ng-click=\"editarUsuario(usuarioSistema)\" class=\"list-group-item\">Alterar info Usuário <i class=\"fa fa-edit\" aria-hidden=\"true\"></i></li><li ng-click=\"editarFilial(currentFilial)\" class=\"list-group-item\">Alterar info Empresa <i class=\"fa fa-edit\" aria-hidden=\"true\"></i></li></ul>"
+  );
+
+
+  $templateCache.put('global/st-api/st-util/template-module/viewChose.html',
+    "<meta charset=\"UTF-8\"><div class=\"only-desktop\"><button ng-if=\"vm.viewType!='table'\" uib-tooltip=\"Lista\" ng-click=\"vm.change('table')\" class=\"btn btn-default transition-button-view-chose btn-block view-chose-button\"><i class=\"fa fa-list\" style=\"font-size:21px\" aria-hidden=\"true\"></i></button> <button ng-if=\"vm.viewType!='grid'\" uib-tooltip=\"Visualização em grade\" ng-click=\"vm.change('grid')\" class=\"btn btn-default transition-button-view-chose btn-block view-chose-button\"><i class=\"fa fa-th\" style=\"font-size:21px\" aria-hidden=\"true\"></i></button></div>"
   );
 
 
