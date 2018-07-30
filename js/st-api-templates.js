@@ -32,7 +32,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-breadcumb/html/stBreadcumb.html',
-    "<meta charset=\"UTF-8\"><md-menu><md-button aria-label=\"Histórico\" class=\"md-primary md-raised st-breadcumb-button-current-path-label\" ng-click=\"$mdMenu.open()\"><ng-md-icon icon=\"access_time\"></ng-md-icon><span class=\"st-breadcumb-atual-page\">{{currentPathLabel}}</span></md-button><md-menu-content width=\"4\" ng-show=\"routeHistory.length>1\"><md-menu-item class=\"st-breadcumb-route-history\" ng-click=\"$stBreadcumbCtrl.data.changePath(r)\" ng-if=\"r.path!=currentPath &&  r.path!='/login'\" ng-repeat=\"r in routeHistory | reverse\"><md-button><ng-md-icon icon=\"access_time\"></ng-md-icon>{{r.label}}</md-button></md-menu-item></md-menu-content></md-menu>"
+    "<meta charset=\"UTF-8\"><md-menu class=\"st-breadcumb\"><md-button aria-label=\"Histórico\" class=\"st-breadcumb-button-current-path-label\" ng-click=\"$mdMenu.open()\"><ng-md-icon icon=\"{{currentPathIcon}}\"></ng-md-icon><span class=\"st-breadcumb-atual-page\">{{currentPathLabel}}</span><ng-md-icon icon=\"arrow_drop_down\"></ng-md-icon></md-button><md-menu-content width=\"4\" ng-show=\"routeHistory.length>1\"><md-menu-item class=\"st-breadcumb-route-history\" ng-click=\"$stBreadcumbCtrl.data.changePath(r)\" ng-if=\"r.path!=currentPath &&  r.path!='/login'\" ng-repeat=\"r in routeHistory | reverse\"><md-button><ng-md-icon icon=\"{{r.icon}}\"></ng-md-icon>{{r.label}}</md-button></md-menu-item></md-menu-content></md-menu>"
   );
 
 
@@ -87,7 +87,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-chart/html/chart.html',
-    "<meta charset=\"UTF-8\"><div layout=\"row\"><md-progress-linear flex ng-if=\"loading===true\" md-mode=\"indeterminate\"></md-progress-linear></div><div layout=\"row\"><div ng-show=\"proj.data.length>0\"><md-input-container><label>Quantidade de itens</label><md-select ng-change=\"getDados()\" ng-model=\"maxItens\"><md-optgroup label=\"items\"><md-option ng-value=\"3\">Max 3 itens</md-option><md-option ng-value=\"5\">Max 5 itens</md-option><md-option ng-value=\"10\">Max 10 itens</md-option><md-option ng-value=\"20\">Max 20 itens</md-option><md-option ng-value=\"30\">Max 30 itens</md-option><md-option ng-value=\"0\">Todos</md-option></md-optgroup></md-select></md-input-container></div><span flex></span><div ng-show=\"proj.data.length>0\"><md-input-container><label>Ordenação</label><md-select ng-change=\"getDados()\" ng-model=\"order\"><md-optgroup label=\"Ordenação\"><md-option ng-value=\"'DESC'\">Maior >> Menor</md-option><md-option ng-value=\"'ASC'\">Menor >> Maior</md-option></md-optgroup></md-select></md-input-container></div></div><div layout=\"row\"><div flex ng-if=\"proj.data.length>0 && proj.labels.length>4\"><canvas class=\"chart chart-bar\" chart-options=\"chartOptions\" chart-colors=\"proj.colors\" chart-data=\"proj.data\" chart-legend=\"true\" chart-labels=\"proj.labels\"></canvas></div><!--  \r" +
+    "<div><div layout=\"row\"><md-progress-linear flex ng-if=\"loading===true\" md-mode=\"indeterminate\"></md-progress-linear></div><div ng-show=\"false\" layout=\"row\"><div ng-show=\"proj.data.length>0\"><md-input-container><label>Quantidade de itens</label><md-select ng-change=\"getDados()\" ng-model=\"maxItens\"><md-optgroup label=\"items\"><md-option ng-value=\"3\">Max 3 itens</md-option><md-option ng-value=\"5\">Max 5 itens</md-option><md-option ng-value=\"10\">Max 10 itens</md-option><md-option ng-value=\"20\">Max 20 itens</md-option><md-option ng-value=\"30\">Max 30 itens</md-option><md-option ng-value=\"0\">Todos</md-option></md-optgroup></md-select></md-input-container></div><span flex></span><div ng-show=\"proj.data.length>0\"><md-input-container><label>Ordena��o</label><md-select ng-change=\"getDados()\" ng-model=\"order\"><md-optgroup label=\"Ordena��o\"><md-option ng-value=\"'DESC'\">Maior >> Menor</md-option><md-option ng-value=\"'ASC'\">Menor >> Maior</md-option></md-optgroup></md-select></md-input-container></div></div><div layout=\"row\"><div flex ng-if=\"proj.data.length>0 && proj.labels.length>4\"><canvas class=\"chart chart-bar\" chart-options=\"chartOptions\" chart-colors=\"proj.colors\" chart-data=\"proj.data\" chart-legend=\"true\" chart-labels=\"proj.labels\"></canvas></div><!--  \r" +
     "\n" +
     "<table class=\"table table-striped table-bordered\" >\r" +
     "\n" +
@@ -105,7 +105,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
     "\n" +
     "</table>\r" +
     "\n" +
-    "--><div flex ng-if=\"proj.data.length>0 && proj.labels.length<=4\"><canvas class=\"chart chart-doughnut\" chart-options=\"chartOptions\" chart-colors=\"proj.colors\" chart-data=\"proj.data\" chart-legend=\"true\" chart-labels=\"proj.labels\"></canvas></div></div>"
+    "--><div flex ng-if=\"proj.data.length>0 && proj.labels.length<=4\"><canvas class=\"chart chart-doughnut\" chart-options=\"chartOptions\" chart-colors=\"proj.colors\" chart-data=\"proj.data\" chart-legend=\"true\" chart-labels=\"proj.labels\"></canvas></div></div></div>"
   );
 
 
@@ -115,7 +115,115 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-check-list/html/stCheckList.html',
-    "<div class=\"st-check-list\"><ul dnd-list=\"vm.objetos\"><li class=\"st-check-list-item\" id=\"item-index-{{$index}}\" ng-repeat=\"item in vm.objetos\" dnd-draggable=\"item\" dnd-moved=\"vm.moveObject($index, item)\" dnd-effect-allowed=\"move\" dnd-selected=\"vm.selectedItem =  item\" ng-class=\"{'selected': vm.selectedItem== item}\"><div layout=\"row\"><md-checkbox class=\"st-check-list-check\" ng-model=\"vm.list[$index].model\" ng-change=\"vm.change($index)\" ng-true-value=\"{{vm.trueValue}}\" ng-false-value=\"{{vm.falseValue}}\"><label ng-click=\"$event.stopPropagation()\" class=\"st-check-list-label\">{{vm.list[$index].label}}</label></md-checkbox><span flex></span><md-menu><md-button aria-label=\"Op��es\" class=\"md-icon-button\" ng-click=\"vm.openMenu($event, $mdMenu)\"><ng-md-icon icon=\"{{$stCrudToolsCtrl.icon || 'more_vert'}}\"></ng-md-icon></md-button><md-menu-content><md-menu-item><md-button class=\"st-check-list-item-edit-column\" ng-click=\"vm.editItem($event, item)\"><ng-md-icon icon=\"mode_edit\"></ng-md-icon>Editar</md-button></md-menu-item><md-menu-item><md-button confirm ng-click=\"vm.deleteFunction(item)\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button></md-menu-item></md-menu-content></md-menu></div></li></ul><md-list><md-list-item><input style=\"height: 25px;padding: 5px\" ng-focus=\"vm.editing=true\" ng-class=\"{'checklist-new-item': vm.editing!=true}\" ng-model=\"vm.newItem\" placeholder=\"Adicionar item...\"></md-list-item><md-list-item><div ng-if=\"vm.editing==true\"><md-button class=\"md-accent md-raised\" ng-click=\"vm.addItem(vm.newItem);vm.editing=false\">Adicionar item</md-button><a class=\"text-muted\" ng-click=\"vm.editing=false;vm.newItem=''\" style=\"margin:5px\"><i class=\"fa fa-times\"></i></a></div></md-list-item></md-list></div>"
+    "<div class=\"st-check-list\"><div layout=\"row\"><md-button ng-show=\"vm.objetos.length>0\" confirm=\"Tem certeza que deseja deletar todos os itens?\" ng-click=\"vm.deleteAll()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar todos os itens</md-button></div><ul dnd-list=\"vm.objetos\"><li class=\"st-check-list-item\" id=\"item-index-{{$index}}\" ng-repeat=\"item in vm.objetos\" dnd-draggable=\"item\" dnd-moved=\"vm.objetos.splice($index, 1);\" dnd-dragend=\"vm.dragEnd()\" dnd-effect-allowed=\"move\" dnd-selected=\"vm.selectedItem =  item\" ng-class=\"{'selected': vm.selectedItem== item}\"><div layout=\"row\"><md-checkbox class=\"st-check-list-check\" ng-model=\"item[vm.attr]\" ng-change=\"vm.changeChecked(item)\" ng-true-value=\"{{vm.trueValue}}\" ng-false-value=\"{{vm.falseValue}}\"><label ng-click=\"$event.stopPropagation()\" class=\"st-check-list-label\">{{item[vm.attrLabel]}}</label></md-checkbox><span flex></span><md-menu><md-button aria-label=\"Op��es\" class=\"md-icon-button\" ng-click=\"vm.openMenu($event, $mdMenu)\"><ng-md-icon icon=\"{{$stCrudToolsCtrl.icon || 'more_vert'}}\"></ng-md-icon></md-button><md-menu-content><md-menu-item><md-button class=\"st-check-list-item-edit-column\" ng-click=\"vm.editItem($event, item)\"><ng-md-icon icon=\"mode_edit\"></ng-md-icon>Editar</md-button></md-menu-item><md-menu-item><md-button confirm ng-click=\"vm.deleteFunction(item, $index)\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button></md-menu-item></md-menu-content></md-menu></div></li></ul><md-list><md-list-item><input style=\"height: 25px;padding: 5px\" ng-focus=\"vm.editing=true\" ng-class=\"{'checklist-new-item': vm.editing!=true}\" ng-model=\"vm.newItem\" placeholder=\"Adicionar item...\"></md-list-item><md-list-item><div ng-if=\"vm.editing==true\"><md-button class=\"md-accent md-raised\" ng-click=\"vm.addItem(vm.newItem);vm.editing=false\">Adicionar item</md-button><a class=\"text-muted\" ng-click=\"vm.editing=false;vm.newItem=''\" style=\"margin:5px\"><i class=\"fa fa-times\"></i></a></div></md-list-item></md-list></div><!--\r" +
+    "\n" +
+    "<ul dnd-list=\"vm.list\">\r" +
+    "\n" +
+    "    <li\r" +
+    "\n" +
+    "    class=\"st-check-list-item\"\r" +
+    "\n" +
+    "    id=\"item-index-{{$index}}\"\r" +
+    "\n" +
+    "    ng-repeat=\"item in vm.list\"\r" +
+    "\n" +
+    "    dnd-draggable=\"item\"\r" +
+    "\n" +
+    "    dnd-moved=\"vm.list.splice($index, 1);\"\r" +
+    "\n" +
+    "    dnd-dragend =\"vm.dragEnd()\"\r" +
+    "\n" +
+    "    dnd-effect-allowed=\"move\"\r" +
+    "\n" +
+    "    dnd-selected=\"vm.selectedItem =  item\"\r" +
+    "\n" +
+    "    ng-class=\"{'selected': vm.selectedItem== item}\"\r" +
+    "\n" +
+    "    >\r" +
+    "\n" +
+    "    <div layout=\"row\">\r" +
+    "\n" +
+    "	    <md-checkbox class=\"st-check-list-check\"  ng-model=\"vm.list[$index].model\" ng-change=\"vm.change($index)\" ng-true-value=\"{{vm.trueValue}}\"  ng-false-value=\"{{vm.falseValue}}\" >\r" +
+    "\n" +
+    "	     	    <label ng-click=\"$event.stopPropagation()\"   class=\"st-check-list-label\" > {{vm.list[$index].label}}</label>\r" +
+    "\n" +
+    "	    </md-checkbox>\r" +
+    "\n" +
+    "         <span flex></span>\r" +
+    "\n" +
+    "	     <md-menu>\r" +
+    "\n" +
+    "      <md-button aria-label=\"Op��es\" class=\"md-icon-button\" ng-click=\"vm.openMenu($event, $mdMenu)\">\r" +
+    "\n" +
+    "          <ng-md-icon icon=\"{{$stCrudToolsCtrl.icon || 'more_vert'}}\"></ng-md-icon>\r" +
+    "\n" +
+    "      </md-button>\r" +
+    "\n" +
+    "      <md-menu-content>\r" +
+    "\n" +
+    "	       <md-menu-item>\r" +
+    "\n" +
+    "		        <md-button class=\"st-check-list-item-edit-column\" ng-click=\"vm.editItem($event, item)\">\r" +
+    "\n" +
+    "		            <ng-md-icon icon=\"mode_edit\"></ng-md-icon>\r" +
+    "\n" +
+    "		            Editar\r" +
+    "\n" +
+    "		          </md-button>\r" +
+    "\n" +
+    "	       </md-menu-item>\r" +
+    "\n" +
+    "	       <md-menu-item>\r" +
+    "\n" +
+    "	            <md-button confirm ng-click=\"vm.deleteFunction(item)\">\r" +
+    "\n" +
+    "	             <ng-md-icon icon=\"delete\"></ng-md-icon>\r" +
+    "\n" +
+    "	              Deletar\r" +
+    "\n" +
+    "	             </md-button>\r" +
+    "\n" +
+    "	        </md-menu-item>\r" +
+    "\n" +
+    "	           \r" +
+    "\n" +
+    "	      </md-menu-content>\r" +
+    "\n" +
+    "	 </md-menu>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    </li>\r" +
+    "\n" +
+    "</ul>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "<md-list>\r" +
+    "\n" +
+    "   <md-list-item>\r" +
+    "\n" +
+    "	    <input style=\"height: 25px;padding: 5px;\"  ng-focus=\"vm.editing=true\" ng-class=\"{'checklist-new-item': vm.editing!=true}\" ng-model=\"vm.newItem\" placeholder=\"Adicionar item...\"/>\r" +
+    "\n" +
+    "	</md-list-item>\r" +
+    "\n" +
+    "	<md-list-item>\r" +
+    "\n" +
+    "	     <div ng-if=\"vm.editing==true\">\r" +
+    "\n" +
+    "		   <md-button class=\"md-accent md-raised\" ng-click=\"vm.addItem(vm.newItem);vm.editing=false\" >Adicionar item</md-button>\r" +
+    "\n" +
+    "		   <a class=\"text-muted\" ng-click=\"vm.editing=false;vm.newItem=''\" style=\"margin:5px;\"><i class=\"fa fa-times\"></i></a>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "	</md-list-item>\r" +
+    "\n" +
+    "</md-list>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "  -->"
   );
 
 
@@ -165,39 +273,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-filter/html/stFilter.html',
-    "<meta charset=\"UTF-8\"><!-- Campo de busca principal(Especial) --><!-- \r" +
-    "\n" +
-    "	   <div  class=\"st-filter text-center\">\r" +
-    "\n" +
-    "		      <form>\r" +
-    "\n" +
-    "				<div class=\"input-group\" style=\"z-index:1;\">\r" +
-    "\n" +
-    "				   <input id=\"busca\"  class=\"form-control\"  ng-model=\"vm.filtroAtivo.value\" ng-model-options=\"{debounce: 500}\"  ng-change=\"vm.executarBusca(vm.filtroAtivo)\" placeholder=\"{{vm.filtroAtivo.label}}\">\r" +
-    "\n" +
-    "				   <span id=\"span-limpa-busca\"  ng-show=\"vm.filtroAtivo.value\" class=\"input-group-btn\"><button id=\"btn-limpa-busca\" type=\"button\" ng-click=\"vm.filtroAtivo.value='';vm.executarBusca(vm.filtroAtivo)\" class=\"btn btn-default st-filter-limpa text-muted\">x</button></span>  \r" +
-    "\n" +
-    "				  <span class=\"input-group-btn\">\r" +
-    "\n" +
-    "				           <button id=\"btn-change-filtros\"  class=\"btn btn-block btn-default dropdown-toggle\" style=\"width:35px;height:42px;border-bottom-right-radius: 5px!important;border-top-right-radius: 5px!important;box-shadow: none;\" type=\"button\" data-toggle=\"dropdown\"> \r" +
-    "\n" +
-    "				                <span><i class=\"fa fa-caret-down\"></i></span></button>\r" +
-    "\n" +
-    "					            <ul class=\"dropdown-menu  list-group pull-right\" style=\"padding:5px\">\r" +
-    "\n" +
-    "					                <li ng-repeat=\"filtro in vm.filtros\" class=\"list-group-item\" ng-click=\"vm.changeFiltroAtivo(filtro)\" ><strong>{{vm.filtroAtivo.label}}</strong> <i ng-show=\"vm.filtroAtivo.attr==filtro.attr\" class=\"fa fa-check-circle-o\" aria-hidden=\"true\" style=\"color:var(--secondary-color)\"></i></li>\r" +
-    "\n" +
-    "					            </ul>\r" +
-    "\n" +
-    "				    </span>\r" +
-    "\n" +
-    "		  		</div>\r" +
-    "\n" +
-    "			  </form> \r" +
-    "\n" +
-    "		</div>\r" +
-    "\n" +
-    "	 --><div layout=\"row\"><md-input-container flex class=\"md-block\"><input placeholder=\"{{vm.filtroAtivo.label}}\" ng-change=\"vm.executarBusca(vm.filtroAtivo)\" ng-model-options=\"{debounce: 500}\" ng-model=\"vm.filtroAtivo.value\"><md-button ng-show=\"vm.filtroAtivo.value\" ng-click=\"vm.filtroAtivo.value='';vm.executarBusca(vm.filtroAtivo)\" class=\"animate-show md-icon-button md-accent\" style=\"position: absolute; top: 0px; right: -15px\"><div>X</div></md-button></md-input-container><div><md-menu><md-button style=\"margin: 15px\" aria-label=\"Alterar filtros\" class=\"md-icon-button md-accent\" ng-click=\"vm.openMenuFiltros($mdMenu, $event)\"><ng-md-icon icon=\"filter_list\"></ng-md-icon><md-tooltip>Alterar filtros</md-tooltip></md-button><md-menu-content width=\"4\"><md-menu-item ng-repeat=\"filtro in vm.filtros\" ng-click=\"vm.changeFiltroAtivo(filtro)\"><md-button class=\"md-primary\">{{filtro.label}}<ng-md-icon ng-show=\"vm.filtroAtivo.attr==filtro.attr\" icon=\"check_box\"></ng-md-icon></md-button></md-menu-item></md-menu-content></md-menu></div></div>"
+    "<meta charset=\"UTF-8\"><!-- Campo de busca principal(Especial) --><div layout=\"row\"><md-input-container flex class=\"md-block\"><input placeholder=\"{{vm.filtroAtivo.label}}\" ng-change=\"vm.executarBusca(vm.filtroAtivo)\" ng-model-options=\"{debounce: 500}\" ng-model=\"vm.filtroAtivo.value\"><md-button ng-show=\"vm.filtroAtivo.value\" ng-click=\"vm.filtroAtivo.value='';vm.executarBusca(vm.filtroAtivo)\" class=\"animate-show md-icon-button md-accent\" style=\"position: absolute; top: 0px; right: -15px\"><div>X</div></md-button></md-input-container><div><md-menu><md-button style=\"margin: 15px\" aria-label=\"Alterar filtros\" class=\"md-icon-button md-accent\" ng-click=\"vm.openMenuFiltros($mdMenu, $event)\"><ng-md-icon icon=\"filter_list\"></ng-md-icon><md-tooltip>Alterar filtros</md-tooltip></md-button><md-menu-content width=\"4\"><md-menu-item ng-repeat=\"filtro in vm.filtros\" ng-click=\"vm.changeFiltroAtivo(filtro)\"><md-button class=\"md-primary\">{{filtro.label}}<ng-md-icon ng-show=\"vm.filtroAtivo.attr==filtro.attr\" icon=\"check_box\"></ng-md-icon></md-button></md-menu-item></md-menu-content></md-menu></div></div>"
   );
 
 
@@ -217,7 +293,12 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-input/html/stInput.html',
-    "<md-input-container class=\"md-block\" flex-gt-sm><label>{{label}}</label><input name=\"phone\" ng-model=\"ngModel\"></md-input-container>"
+    "<md-input-container class=\"md-block\" flex-gt-sm><label>{{label}}</label><input autocomplete=\"off\" ng-model=\"ngModel\"></md-input-container>"
+  );
+
+
+  $templateCache.put('global/st-api/st-input/html/stInputDate.html',
+    "<md-datepicker ng-model=\"ngModel\" md-placeholder=\"Enter date\" md-open-on-focus></md-datepicker>"
   );
 
 
@@ -437,6 +518,62 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('global/st-api/st-selected-items-actions/html/stSelectedItemsActions.html',
     "<md-toolbar layout=\"row\" class=\"md-table-toolbar alternate md-default\" ng-show=\"$stSelectedItemsActionsCtrl.selectedItems.length>0\"><md-menu flex><md-button aria-label=\"Open phone interactions menu\" class=\"md-default md-raised\" ng-click=\"$mdMenu.open()\"><span ng-if=\"$stSelectedItemsActionsCtrl.selectedItems.length>1\">{{$stSelectedItemsActionsCtrl.selectedItems.length}} itens selecionados</span> <span ng-if=\"$stSelectedItemsActionsCtrl.selectedItems.length==1\">1 item selecionado</span><ng-md-icon icon=\"arrow_drop_down\"></ng-md-icon></md-button><md-menu-content width=\"4\" ng-transclude><md-menu-item><md-button confirm ng-click=\"$stSelectedItemsActionsCtrl.deleteFunction()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button></md-menu-item></md-menu-content></md-menu></md-toolbar>"
+  );
+
+
+  $templateCache.put('global/st-api/st-string-check/html/stStringCheck.html',
+    "<meta charset=\"UTF-8\" />\r" +
+    "\n" +
+    "<div layout=\"row\" layout-wrap>\r" +
+    "\n" +
+    "    <div flex=\"100\" layout=\"column\">\r" +
+    "\n" +
+    "      <div>\r" +
+    "\n" +
+    "        <fieldset class=\"demo-fieldset\" >\r" +
+    "\n" +
+    "          <legend class=\"demo-legend\">{{ ctrl.titulo}} </legend>\r" +
+    "\n" +
+    "          <div layout=\"row\" layout-wrap flex>\r" +
+    "\n" +
+    "          <div flex-xs flex=\"50\">\r" +
+    "\n" +
+    "            <md-checkbox aria-label=\"Select All\"\r" +
+    "\n" +
+    "                         ng-checked=\"ctrl.isChecked()\"\r" +
+    "\n" +
+    "                         md-indeterminate=\"ctrl.isIndeterminate()\"\r" +
+    "\n" +
+    "                         ng-click=\"ctrl.toggleAll()\">\r" +
+    "\n" +
+    "              <span ng-if=\"ctrl.isChecked()\">Des-</span>Selecionar todos\r" +
+    "\n" +
+    "            </md-checkbox>\r" +
+    "\n" +
+    "          </div>\r" +
+    "\n" +
+    "            <div style=\"padding-left: 30px;\" class=\"demo-select-all-checkboxes\" flex=\"100\" ng-repeat=\"item in ctrl.items\">\r" +
+    "\n" +
+    "              <md-checkbox ng-checked=\"ctrl.exists(item.attr, ctrl.selected)\" ng-click=\"ctrl.toggle(item.attr, ctrl.selected)\">\r" +
+    "\n" +
+    "               {{ item.label }}\r" +
+    "\n" +
+    "              </md-checkbox>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "          </div>\r" +
+    "\n" +
+    "        </fieldset>\r" +
+    "\n" +
+    "      </div>\r" +
+    "\n" +
+    "    </div"
+  );
+
+
+  $templateCache.put('global/st-api/st-string-chip/html/stStringChip.html',
+    "<md-input-container class=\"md-block\" flex-gt-sm><label>{{label}}</label><input name=\"phone\" ng-model=\"ngModel\"></md-input-container>"
   );
 
 
