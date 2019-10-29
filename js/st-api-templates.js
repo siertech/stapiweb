@@ -11,6 +11,201 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('global/st-api/prototipo/html/prototipoDetalhe.html',
+    "<meta charset=\"UTF-8\" />\r" +
+    "\n" +
+    "<div layout=\"row\" layout-padding layout-wrap>\r" +
+    "\n" +
+    "       <div flex=\"50\">\r" +
+    "\n" +
+    "          <st-nav active-tab=\"$prototipoDetalheCtrl.activeTab\"  tabs=\"[{icon:'code', label:'Código'}, {label:'Design', icon:'ye'}, {label:'Comparar versões', icon:'compare_arrows'}]\" </st-nav>\r" +
+    "\n" +
+    "      </div>\r" +
+    "\n" +
+    "      <div flex=\"30\">\r" +
+    "\n" +
+    "	         <prototipo-form></prototipo-form>\r" +
+    "\n" +
+    "	  </div>\r" +
+    "\n" +
+    "	  <md-input-container  flex=\"20\" ng-show=\"$prototipoDetalheCtrl.versoesPrototipo.length>1\">\r" +
+    "\n" +
+    "		  <label>Versão</label>\r" +
+    "\n" +
+    "		  <md-select ng-model=\"$prototipoDetalheCtrl.versaoPrototipo\">\r" +
+    "\n" +
+    "		    <md-option ng-value=\"versao\" ng-repeat=\"versao in $prototipoDetalheCtrl.versoesPrototipo\">{{ versao.label }} ({{versao.dataCadastro| date: 'dd/MM/yyyy' }})</md-option>\r" +
+    "\n" +
+    "		  </md-select>\r" +
+    "\n" +
+    "	  </md-input-container>\r" +
+    "\n" +
+    "  </div>\r" +
+    "\n" +
+    "<div ng-if=\"$prototipoDetalheCtrl.activeTab==0\"  layout=\"row\" resizable r-directions=\"['bottom']\" r-flex=\"true\">\r" +
+    "\n" +
+    "                <section flex    id=\"one\" resizable r-directions=\"['']\" r-flex=\"true\">\r" +
+    "\n" +
+    "                    <md-card>\r" +
+    "\n" +
+    "                        <md-card-title>\r" +
+    "\n" +
+    "                             <p>HTML</p>\r" +
+    "\n" +
+    "                       </md-card-title>\r" +
+    "\n" +
+    "                       <md-card-content>\r" +
+    "\n" +
+    "                              <textarea ui-codemirror=\"{\r" +
+    "\n" +
+    "                              lineNumbers: true,\r" +
+    "\n" +
+    "                              theme:'twilight',\r" +
+    "\n" +
+    "                              mode: 'xml',\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            }\" \r" +
+    "\n" +
+    "                           ng-model=\"$prototipoDetalheCtrl.versaoPrototipo.codigo\"\r" +
+    "\n" +
+    "                            >\r" +
+    "\n" +
+    "                        </textarea>\r" +
+    "\n" +
+    "                      </md-card-content>\r" +
+    "\n" +
+    "                    </md-card>\r" +
+    "\n" +
+    "                </section>\r" +
+    "\n" +
+    "                <section   resizable r-directions=\"['left']\" r-flex=\"true\">\r" +
+    "\n" +
+    "                   <md-card>\r" +
+    "\n" +
+    "                       <md-card-title>\r" +
+    "\n" +
+    "                              <p>CSS</p>\r" +
+    "\n" +
+    "                       </md-card-title>\r" +
+    "\n" +
+    "                       <md-card-content>\r" +
+    "\n" +
+    "                         <textarea ui-codemirror=\"{\r" +
+    "\n" +
+    "					      lineNumbers: true,\r" +
+    "\n" +
+    "					      theme:'twilight',\r" +
+    "\n" +
+    "					      mode: 'css',\r" +
+    "\n" +
+    "					     \r" +
+    "\n" +
+    "					    }\" \r" +
+    "\n" +
+    "					   ng-model=\"$prototipoDetalheCtrl.versaoPrototipo.cssContent\"\r" +
+    "\n" +
+    "					    >\r" +
+    "\n" +
+    "				    </textarea>\r" +
+    "\n" +
+    "                      </md-card-content>\r" +
+    "\n" +
+    "                    </md-card>\r" +
+    "\n" +
+    "                </section>\r" +
+    "\n" +
+    "              \r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "<div  ng-show=\"$prototipoDetalheCtrl.activeTab==1\"  id=\"htmlContent\" >\r" +
+    "\n" +
+    "      \r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "  <div layout=\"row\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "   <md-button ng-click=\"$prototipoDetalheCtrl.salvar($prototipoDetalheCtrl.versaoPrototipo)\" class=\"md-primary md-raised\">\r" +
+    "\n" +
+    "         <ng-md-icon icon=\"save\"></ng-md-icon>\r" +
+    "\n" +
+    "         Salvar protótipo\r" +
+    "\n" +
+    "   </md-button>\r" +
+    "\n" +
+    "   <md-button ng-hide=\"!$prototipoDetalheCtrl.versaoPrototipo.id\"   ng-click=\"$prototipoDetalheCtrl.salvarComoNovaVersao($prototipoDetalheCtrl.versaoPrototipo)\" class=\"md-accent md-raised\">\r" +
+    "\n" +
+    "        <ng-md-icon icon=\"add_box\"></ng-md-icon>\r" +
+    "\n" +
+    "       Salvar como nova versão\r" +
+    "\n" +
+    "   </md-button>\r" +
+    "\n" +
+    "   <md-button href=\"#/prototipo\" class=\"md-primary\">\r" +
+    "\n" +
+    "       <ng-md-icon icon=\"list\"></ng-md-icon>\r" +
+    "\n" +
+    "      Ir para Lista de protótipos\r" +
+    "\n" +
+    "   </md-button>\r" +
+    "\n" +
+    "   <md-button confirm ng-hide=\"$prototipoDetalheCtrl.versoesPrototipo.length<2\" ng-click=\"$prototipoDetalheCtrl.deletarVersao($prototipoDetalheCtrl.versaoPrototipo)\"  >\r" +
+    "\n" +
+    "	       <ng-md-icon icon=\"delete_forever\"></ng-md-icon>\r" +
+    "\n" +
+    "	       Deletar versão\r" +
+    "\n" +
+    "   </md-button>\r" +
+    "\n" +
+    "   <md-button confirm class=\"md-warn\" ng-hide=\"!$prototipoDetalheCtrl.versaoPrototipo.id\"  ng-click=\"$prototipoDetalheCtrl.deletarPrototipo($prototipoDetalheCtrl.versaoPrototipo)\"  >\r" +
+    "\n" +
+    "	       <ng-md-icon icon=\"delete_forever\"></ng-md-icon>\r" +
+    "\n" +
+    "	       Deletar protótipo\r" +
+    "\n" +
+    "   </md-button>\r" +
+    "\n" +
+    "  </div>\r" +
+    "\n" +
+    "  \r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "          "
+  );
+
+
+  $templateCache.put('global/st-api/prototipo/html/prototipoForm.html',
+    "<meta charset=\"UTF-8\"><div layout=\"row\" class=\"md-block\" layout-wrap><st-input-string flex=\"50\" flex-xs=\"100\" label=\"Título do protótipo\" ng-model=\"$prototipoDetalheCtrl.versaoPrototipo.prototipo.titulo\"></st-input-string><st-input-string flex=\"50\" flex-xs=\"100\" label=\"Título da versão\" ng-model=\"$prototipoDetalheCtrl.versaoPrototipo.label\"></st-input-string></div>"
+  );
+
+
+  $templateCache.put('global/st-api/prototipo/html/prototipoGridView.html',
+    "<meta charset=\"UTF-8\"><div layout=\"row\" layout-wrap flex><div flex=\"25\" flex-xs=\"100\" flex-sm=\"50\" ng-repeat=\"item in $prototipoListCtrl.data.objetos\"><st-grid-item icon=\"code\" item=\"item\" label=\"{{item.titulo}}\" delete-function=\"$prototipoListCtrl.data.deleteFunction([item.id])\" open-detail=\"$prototipoListCtrl.data.openDetail(item)\"></st-grid-item></div></div>"
+  );
+
+
+  $templateCache.put('global/st-api/prototipo/html/prototipoList.html',
+    "<meta charset=\"UTF-8\"><md-card style=\"padding-top: 15px\"><md-toolbar class=\"md-table-toolbar md-default\"><div layout=\"row\" class=\"md-toolbar-tools\" layout-wrap><div flex=\"20\" hide-xs md-hide-xs><md-button class=\"add-button md-raised\" ng-click=\"$prototipoListCtrl.data.openDetail()\" class=\"md-raised\">Cadastrar</md-button></div><st-filter flex-xs=\"80\" flex=\"60\" query-options=\"$prototipoListCtrl.data.requestListParams\" get-list=\"$prototipoListCtrl.data.getList\" filtros=\"$prototipoListCtrl.data.filtros\"></st-filter><view-chose flex=\"10\" view-type=\"config.confs.viewType\"></view-chose></div></md-toolbar></md-card><float-button-add class=\"float-add-button\" tooltip-label=\"Cadastrar novo prototipo\" ng-click=\"$prototipoListCtrl.data.openDetail()\"></float-button-add><div layout=\"row\" style=\"margin:8px\"><md-progress-linear flex ng-if=\"$prototipoListCtrl.data.loading===true\" md-mode=\"indeterminate\"></md-progress-linear></div><st-selected-items-actions delete-function=\"$prototipoListCtrl.data.deleteFunction($prototipoListCtrl.data.getSelectedItemsIds())\" selected-items=\"$prototipoListCtrl.data.selectedItems\"></st-selected-items-actions><prototipo-grid-view ng-show=\"config.confs.viewType=='grid'\"></prototipo-grid-view><prototipo-table-view ng-show=\"config.confs.viewType=='table'\"></prototipo-table-view><div ng-if=\"$prototipoListCtrl.data.objetos.length==0\"><p class=\"text-muted\">Nenhum item encontrado</p></div><st-filter-pagination total-itens=\"$prototipoListCtrl.data.totalItens\" itens-in-page=\"$prototipoListCtrl.data.objetos.length\" get-list=\"$prototipoListCtrl.data.getList\" query-options=\"$prototipoListCtrl.data.requestListParams\"></st-filter-pagination>"
+  );
+
+
+  $templateCache.put('global/st-api/prototipo/html/prototipoTableView.html',
+    "<meta charset=\"UTF-8\"><st-table columns=\"$prototipoListCtrl.data.tableColumns\" open-detail=\"$prototipoListCtrl.data.openDetail\" order-by=\"$prototipoListCtrl.data.orderBy\" delete-function=\"$prototipoListCtrl.data.deleteFunction\" selected-items=\"$prototipoListCtrl.data.selectedItems\" items=\"$prototipoListCtrl.data.objetos\" edit-column=\"$prototipoListCtrl.data.editColumn\"></st-table>"
+  );
+
+
   $templateCache.put('global/st-api/st-autocomplete/html/autoCompleteObject.html',
     "<button ng-click=\"openBusca()\" class=\"form-control {{extraClass}} text-left\" ng-class=\"{'text-muted':placeHolder}\">{{ngModel[label] || ngModel || placeHolder}}</button>"
   );
@@ -115,7 +310,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-check-list/html/stCheckList.html',
-    "<div class=\"st-check-list\"><div layout=\"row\"><md-button ng-show=\"vm.objetos.length>0\" confirm=\"Tem certeza que deseja deletar todos os itens?\" ng-click=\"vm.deleteAll()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar todos os itens</md-button></div><ul dnd-list=\"vm.objetos\"><li class=\"st-check-list-item\" id=\"item-index-{{$index}}\" ng-repeat=\"item in vm.objetos\" dnd-draggable=\"item\" dnd-moved=\"vm.objetos.splice($index, 1);\" dnd-dragend=\"vm.dragEnd()\" dnd-effect-allowed=\"move\" dnd-selected=\"vm.selectedItem =  item\" ng-class=\"{'selected': vm.selectedItem== item}\"><div layout=\"row\"><md-checkbox class=\"st-check-list-check\" ng-model=\"item[vm.attr]\" ng-change=\"vm.changeChecked(item)\" ng-true-value=\"{{vm.trueValue}}\" ng-false-value=\"{{vm.falseValue}}\"><label ng-click=\"$event.stopPropagation()\" class=\"st-check-list-label\">{{item[vm.attrLabel]}}</label></md-checkbox><span flex></span><md-menu><md-button aria-label=\"Op��es\" class=\"md-icon-button\" ng-click=\"vm.openMenu($event, $mdMenu)\"><ng-md-icon icon=\"{{$stCrudToolsCtrl.icon || 'more_vert'}}\"></ng-md-icon></md-button><md-menu-content><md-menu-item><md-button class=\"st-check-list-item-edit-column\" ng-click=\"vm.editItem($event, item)\"><ng-md-icon icon=\"mode_edit\"></ng-md-icon>Editar</md-button></md-menu-item><md-menu-item><md-button confirm ng-click=\"vm.deleteFunction(item, $index)\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button></md-menu-item></md-menu-content></md-menu></div></li></ul><md-list><md-list-item><input style=\"height: 25px;padding: 5px\" ng-focus=\"vm.editing=true\" ng-class=\"{'checklist-new-item': vm.editing!=true}\" ng-model=\"vm.newItem\" placeholder=\"Adicionar item...\"></md-list-item><md-list-item><div ng-if=\"vm.editing==true\"><md-button class=\"md-accent md-raised\" ng-click=\"vm.addItem(vm.newItem);vm.editing=false\">Adicionar item</md-button><a class=\"text-muted\" ng-click=\"vm.editing=false;vm.newItem=''\" style=\"margin:5px\"><i class=\"fa fa-times\"></i></a></div></md-list-item></md-list></div><!--\r" +
+    "<div class=\"st-check-list\"><div layout=\"row\"><md-button ng-show=\"vm.objetos.length>0 && vm.hideDeleteAll != true\" confirm=\"Tem certeza que deseja deletar todos os itens?\" ng-click=\"vm.deleteAll()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar todos os itens</md-button></div><ul dnd-list=\"vm.objetos\" ng-class=\"{'st-check-list-no-items': vm.objetos.length==0 && vm.showBorderNoItems==true}\"><li class=\"st-check-list-item\" id=\"item-index-{{$index}}\" ng-repeat=\"item in vm.objetos\" dnd-draggable=\"item\" dnd-moved=\"vm.objetos.splice($index, 1);\" dnd-dragend=\"vm.dragEnd()\" dnd-effect-allowed=\"move\" dnd-selected=\"vm.selectedItem =  item\" ng-class=\"{'selected': vm.selectedItem== item}\"><div layout=\"row\"><md-checkbox ng-if=\"vm.hideCheckbox==false || !vm.hideCheckbox\" class=\"st-check-list-check\" ng-model=\"item[vm.attr]\" ng-change=\"vm.changeChecked(item)\" ng-true-value=\"{{vm.trueValue}}\" ng-false-value=\"{{vm.falseValue}}\"><label ng-click=\"$event.stopPropagation()\" class=\"st-check-list-label\">{{item[vm.attrLabel]}}</label></md-checkbox><label ng-if=\"vm.hideCheckbox==true\" ng-click=\"$event.stopPropagation()\" class=\"st-check-list-label\">{{item[vm.attrLabel]}}</label><span flex></span><md-menu><md-button aria-label=\"Op��es\" class=\"md-icon-button\" ng-click=\"vm.openMenu($event, $mdMenu)\"><ng-md-icon icon=\"{{$stCrudToolsCtrl.icon || 'more_vert'}}\"></ng-md-icon></md-button><md-menu-content><md-menu-item><md-button class=\"st-check-list-item-edit-column\" ng-click=\"vm.editItem($event, item)\"><ng-md-icon icon=\"mode_edit\"></ng-md-icon>Editar</md-button></md-menu-item><md-menu-item><md-button confirm ng-click=\"vm.deleteFunction(item, $index)\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button></md-menu-item></md-menu-content></md-menu></div></li></ul><md-list ng-hide=\"vm.hideAdd==true\"><md-list-item><input style=\"height: 25px;padding: 5px\" ng-focus=\"vm.editing=true\" ng-class=\"{'checklist-new-item': vm.editing!=true}\" ng-model=\"vm.newItem\" placeholder=\"Adicionar item...\"></md-list-item><md-list-item><div ng-if=\"vm.editing==true\"><md-button class=\"md-accent md-raised\" ng-click=\"vm.addItem(vm.newItem);vm.editing=false\">Adicionar item</md-button><a class=\"text-muted\" ng-click=\"vm.editing=false;vm.newItem=''\" style=\"margin:5px\"><i class=\"fa fa-times\"></i></a></div></md-list-item></md-list></div><!--\r" +
     "\n" +
     "<ul dnd-list=\"vm.list\">\r" +
     "\n" +
@@ -248,7 +443,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-detalhe/html/stDetalhe.html',
-    "<form ng-cloak class=\"st-detalhe-content\"><md-toolbar><div class=\"md-toolbar-tools\"><h2 md-truncate>{{$stDetalheCtrl.title}}</h2><span flex></span><md-button class=\"st-detallhe-cancel-button md-icon-button\" ng-click=\"$stDetalheCtrl.cancelFunction()\"><ng-md-icon icon=\"close\"></ng-md-icon></md-button></div></md-toolbar><md-dialog-content><div class=\"md-dialog-content\" ng-transclude></div></md-dialog-content><md-dialog-actions layout=\"row\"><md-button class=\"md-raised md-warn st-detalhe-delete-button\" ng-if=\"$stDetalheCtrl.item.id\" confirm ng-disabled=\"$stDetalheCtrl.loading==true\" ng-click=\"$stDetalheCtrl.deleteFunction()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button><md-button class=\"md-raised md-primary st-detalhe-save-button\" ng-disabled=\"$stDetalheCtrl.loading==true\" ng-click=\"$stDetalheCtrl.saveFunction()\"><ng-md-icon icon=\"check_circle\"></ng-md-icon>Salvar</md-button></md-dialog-actions></form>"
+    "<form ng-cloak class=\"st-detalhe-content\"><md-toolbar><div class=\"md-toolbar-tools\"><md-button class=\"st-detallhe-cancel-button md-icon-button\" ng-click=\"$stDetalheCtrl.cancelFunction()\"><ng-md-icon icon=\"close\"></ng-md-icon></md-button><h2 md-truncate>{{$stDetalheCtrl.title}}</h2><span flex></span></div></md-toolbar><md-dialog-content><div class=\"md-dialog-content\" ng-transclude></div></md-dialog-content><md-dialog-actions layout=\"row\"><md-button class=\"md-raised md-warn st-detalhe-delete-button\" ng-if=\"$stDetalheCtrl.item.id\" confirm ng-disabled=\"$stDetalheCtrl.loading==true\" ng-click=\"$stDetalheCtrl.deleteFunction()\"><ng-md-icon icon=\"delete\"></ng-md-icon>Deletar</md-button><md-button class=\"md-raised md-primary st-detalhe-save-button\" ng-disabled=\"$stDetalheCtrl.loading==true\" ng-click=\"$stDetalheCtrl.saveFunction()\"><ng-md-icon icon=\"check_circle\"></ng-md-icon>Salvar</md-button><span flex></span></md-dialog-actions></form>"
   );
 
 
@@ -273,7 +468,7 @@ angular.module('stapi').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('global/st-api/st-filter/html/stFilter.html',
-    "<meta charset=\"UTF-8\"><div layout=\"row\"><ng-md-icon icon=\"search\" style=\"margin-top:19px\"></ng-md-icon><md-input-container flex class=\"md-block\"><input placeholder=\"{{vm.filtroAtivo.label}}\" ng-change=\"vm.executarBusca(vm.filtroAtivo)\" ng-model-options=\"{debounce: 500}\" ng-model=\"vm.filtroAtivo.value\"><md-button ng-show=\"vm.filtroAtivo.value\" ng-click=\"vm.filtroAtivo.value='';vm.executarBusca(vm.filtroAtivo)\" class=\"animate-show md-icon-button md-accent\" style=\"position: absolute; top: 0px; right: 5px\"><div>X</div></md-button></md-input-container><div><md-menu><md-button style=\"margin: 15px\" aria-label=\"Alterar filtros\" class=\"md-icon-button md-accent\" ng-click=\"$mdMenu.open($$event)\"><ng-md-icon icon=\"filter_list\"></ng-md-icon><md-tooltip>Alterar filtros</md-tooltip></md-button><md-menu-content width=\"4\"><md-menu-item ng-click=\"\"><md-button class=\"md-primary\">Filtro 1<ng-md-icon ng-show=\"vm.filtroAtivo.attr==filtro.attr\" icon=\"check_box\"></ng-md-icon></md-button></md-menu-item><md-menu-item ng-click=\"\"><md-button class=\"md-primary\">Filtro 2<ng-md-icon ng-show=\"vm.filtroAtivo.attr==filtro.attr\" icon=\"check_box\"></ng-md-icon></md-button></md-menu-item></md-menu-content></md-menu></div></div>"
+    "<meta charset=\"UTF-8\"><div layout=\"row\"><ng-md-icon icon=\"search\" style=\"margin-top:19px\"></ng-md-icon><md-input-container flex class=\"md-block\"><input placeholder=\"{{vm.filtroAtivo.label}}\" ng-change=\"vm.executarBusca(vm.filtroAtivo)\" ng-model-options=\"{debounce: 500}\" ng-model=\"vm.filtroAtivo.value\"><md-button ng-show=\"vm.filtroAtivo.value\" ng-click=\"vm.filtroAtivo.value='';vm.executarBusca(vm.filtroAtivo)\" class=\"animate-show md-icon-button md-accent\" style=\"position: absolute; top: 0px; right: 5px\"><div>X</div></md-button></md-input-container><div><md-menu><md-button style=\"margin: 15px\" aria-label=\"Alterar filtros\" class=\"md-icon-button md-accent\" ng-click=\"$mdMenu.open($$event)\"><ng-md-icon icon=\"filter_list\"></ng-md-icon><md-tooltip>Alterar filtros</md-tooltip></md-button><md-menu-content width=\"4\"><md-menu-item ng-click=\"vm.changeFiltroAtivo(filtro)\" ng-repeat=\"filtro in vm.filtros\"><md-button class=\"md-primary\">{{filtro.label}}<ng-md-icon ng-show=\"vm.filtroAtivo.attr==filtro.attr\" icon=\"check_circle\"></ng-md-icon></md-button></md-menu-item></md-menu-content></md-menu></div></div>"
   );
 
 
